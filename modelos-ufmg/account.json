@@ -1,0 +1,24 @@
+{
+    "Account": {
+        "post_type": "user",
+        "id": 8,
+        "name": "Usuário de Testes",
+        "email": "portal@portal",
+        "site": null,
+        "temp_password": null,
+        "status": true,
+        "client": null,
+        "unit": "1",
+        "sector": null,
+        "occupation": null,
+        "function": null,
+        "moderator": null,
+        "commercial_phone": null,
+        "home_phone": null,
+        "mobile_phone": null,
+        "required_password_change": null,
+        "is_administrator": true,
+        "permissions": [],
+        "resources_perms": []
+    }
+}

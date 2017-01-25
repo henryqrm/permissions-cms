@@ -1,0 +1,122 @@
+{
+    "name": "Henrique",
+    "email": "email.henrique.rm@gmail.com",
+    "site": "Rua Engenho Da Noite, Casa",
+    "commercial_phone": "33333333333",
+    "home_phone": "33333333333",
+    "mobile_phone": "33333333333",
+    "unit": "Casa",
+    "sector": "Setor",
+    "occupation": "Cargo",
+    "function": "Função",
+    "status": "1",
+    "is_administrator": false,
+    "moderator": 10,
+    "resources_perms": {
+        "page": {
+            "POST": ["POST"],
+            "PUT": "37",
+            "DELETE": ["DELETE"]
+        },
+        "periodical": {
+            "POST": "1",
+            "PUT": "2",
+            "DELETE": ["DELETE"]
+        },
+        "editions": {
+            "POST": ["POST"],
+            "PUT": ["PUT"]
+        },
+        "release": {
+            "POST": ["POST"],
+            "PUT": ["PUT"],
+            "DELETE": ["DELETE"]
+        },
+        "clipping": {
+            "POST": ["POST"],
+            "PUT": ["PUT"],
+            "DELETE": ["DELETE"]
+        },
+        "highlighted_press": {
+            "POST": ["POST"],
+            "PUT": ["PUT"],
+            "DELETE": ["DELETE"]
+        },
+        "course_doctorate": {
+            "PUT": "2585"
+        },
+        "course_master": {
+            "PUT": ["PUT"]
+        },
+        "course_graduation": {
+            "PUT": "2384"
+        },
+        "course_specialization": {
+            "PUT": "2444"
+        },
+        "calendar": {
+            "PUT": ["PUT"],
+            "POST": ["POST"],
+            "DELETE": ["DELETE"]
+        },
+        "news": {
+            "POST": ["POST"],
+            "PUT": ["PUT"],
+            "DELETE": ["DELETE"]
+        },
+        "events": {
+            "POST": ["POST"],
+            "PUT": ["PUT"],
+            "DELETE": ["DELETE"]
+        },
+        "rector": {
+            "POST": ["POST"],
+            "PUT": ["PUT"],
+            "DELETE": ["DELETE"]
+        },
+        "gallery": {
+            "POST": ["POST"],
+            "PUT": ["PUT"],
+            "DELETE": ["DELETE"]
+        },
+        "menu": {
+            "PUT": ["PUT"]
+        },
+        "faq": {
+            "POST": ["POST"],
+            "PUT": ["PUT"],
+            "DELETE": ["DELETE"]
+        },
+        "glossary": {
+            "POST": ["POST"],
+            "PUT": ["PUT"],
+            "DELETE": ["DELETE"]
+        },
+        "user": {
+            "POST": ["POST"],
+            "PUT": ["PUT"],
+            "DELETE": ["DELETE"]
+        }
+    },
+    "permissions": {
+        "page": "POST;PUT:37;DELETE",
+        "periodical": "POST:1;PUT:2;DELETE",
+        "editions": "POST;PUT",
+        "release": "POST;PUT;DELETE",
+        "clipping": "POST;PUT;DELETE",
+        "highlighted_press": "POST;PUT;DELETE",
+        "course_doctorate": "PUT:2585",
+        "course_master": "PUT",
+        "course_graduation": "PUT:2384",
+        "course_specialization": "PUT:2444",
+        "calendar": "PUT;POST;DELETE",
+        "news": "POST;PUT;DELETE",
+        "events": "POST;PUT;DELETE",
+        "rector": "POST;PUT;DELETE",
+        "gallery": "POST;PUT;DELETE",
+        "menu": "PUT",
+        "faq": "POST;PUT;DELETE",
+        "glossary": "POST;PUT;DELETE",
+        "user": "POST;PUT;DELETE"
+    }
+}

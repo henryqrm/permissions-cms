@@ -1,0 +1,201 @@
+{
+    "Resource": {
+        "items": {
+            "page": {
+                "alias": "Páginas",
+                "controller": "Admin\\Controller\\Page",
+                "action": "index",
+                "privileges": {
+                    "POST": "Criar",
+                    "PUT": "Editar",
+                    "DELETE": "Excluir"
+                },
+                "select": ["PUT"]
+            },
+            "periodical": {
+                "alias": "Periódicos",
+                "controller": "Admin\\Controller\\Periodical",
+                "action": "index",
+                "privileges": {
+                    "POST": "Criar",
+                    "PUT": "Editar",
+                    "DELETE": "Excluir"
+                }
+            },
+            "editions": {
+                "alias": "Periódicos - Edições",
+                "controller": "Admin\\Controller\\Edition",
+                "action": "index",
+                "privileges": {
+                    "POST": "Criar",
+                    "PUT": "Editar",
+                    "DELETE": "Excluir"
+                },
+                "select": ["POST", "PUT", "DELETE"]
+            },
+            "release": {
+                "alias": "Assessoria de Imprensa - Releases",
+                "controller": "Admin\\Controller\\Release",
+                "action": "index",
+                "privileges": {
+                    "POST": "Criar",
+                    "PUT": "Editar",
+                    "DELETE": "Excluir"
+                }
+            },
+            "clipping": {
+                "alias": "Assessoria de Imprensa - Clipping",
+                "controller": "Admin\\Controller\\Clipping",
+                "action": "index",
+                "privileges": {
+                    "POST": "Criar",
+                    "PUT": "Editar",
+                    "DELETE": "Excluir"
+                }
+            },
+            "highlighted_press": {
+                "alias": "Assessoria de Imprensa - Destaques",
+                "controller": "Admin\\Controller\\HighlightedPress",
+                "action": "index",
+                "privileges": {
+                    "POST": "Criar",
+                    "PUT": "Editar",
+                    "DELETE": "Excluir"
+                }
+            },
+            "course_graduation": {
+                "alias": "Cursos - Graduação",
+                "controller": ["Admin\\Controller\\RouteController", "Admin\\Controller\\CourseController"],
+                "action": "index",
+                "privileges": {
+                    "PUT": "Editar"
+                },
+                "post_id": "graduation",
+                "select": ["PUT"]
+            },
+            "course_master": {
+                "alias": "Cursos - Mestrado",
+                "controller": ["Admin\\Controller\\RouteController", "Admin\\Controller\\CourseController"],
+                "action": "index",
+                "privileges": {
+                    "PUT": "Editar"
+                },
+                "select": ["PUT"],
+                "post_id": "master"
+            },
+            "course_doctorate": {
+                "alias": "Cursos - Doutorado",
+                "controller": ["Admin\\Controller\\RouteController", "Admin\\Controller\\CourseController"],
+                "action": "index",
+                "privileges": {
+                    "PUT": "Editar"
+                },
+                "select": ["PUT"],
+                "post_id": "doctorate"
+            },
+            "course_specialization": {
+                "alias": "Cursos - Especialização",
+                "controller": ["Admin\\Controller\\RouteController", "Admin\\Controller\\CourseController"],
+                "action": "index",
+                "privileges": {
+                    "PUT": "Editar"
+                },
+                "select": ["PUT"],
+                "post_id": "specialization"
+            },
+            "news": {
+                "alias": "Notícias",
+                "controller": "Admin\\Controller\\News",
+                "action": "index",
+                "privileges": {
+                    "POST": "Criar",
+                    "PUT": "Editar",
+                    "DELETE": "Excluir"
+                }
+            },
+            "events": {
+                "alias": "Eventos",
+                "controller": "Admin\\Controller\\Event",
+                "action": "index",
+                "privileges": {
+                    "POST": "Criar",
+                    "PUT": "Editar",
+                    "DELETE": "Excluir"
+                }
+            },
+            "calendar": {
+                "alias": "Calendário Acadêmico",
+                "controller": ["Admin\\Controller\\Calendar", "Admin\\Controller\\Period"],
+                "action": "index",
+                "privileges": {
+                    "POST": "Criar",
+                    "PUT": "Editar",
+                    "DELETE": "Excluir"
+                }
+            },
+            "glossary": {
+                "alias": "Glossário",
+                "controller": "Admin\\Controller\\Glossary",
+                "action": "index",
+                "privileges": {
+                    "POST": "Criar",
+                    "PUT": "Editar",
+                    "DELETE": "Excluir"
+                }
+            },
+            "faq": {
+                "alias": "FAQ",
+                "controller": "Admin\\Controller\\Faq",
+                "action": "index",
+                "privileges": {
+                    "POST": "Criar",
+                    "PUT": "Editar",
+                    "DELETE": "Excluir"
+                }
+            },
+            "rector": {
+                "alias": "Reitores",
+                "controller": "Admin\\Controller\\Rector",
+                "action": "index",
+                "privileges": {
+                    "POST": "Criar",
+                    "PUT": "Editar",
+                    "DELETE": "Excluir"
+                }
+            },
+            "gallery": {
+                "alias": "Galerias",
+                "controller": "Admin\\Controller\\Gallery",
+                "action": "index",
+                "privileges": {
+                    "POST": "Criar",
+                    "PUT": "Editar",
+                    "DELETE": "Excluir"
+                }
+            },
+            "menu": {
+                "alias": "Menu Portal",
+                "controller": "Admin\\Controller\\Menu",
+                "action": "index",
+                "privileges": {
+                    "PUT": "Editar"
+                }
+            },
+            "user": {
+                "alias": "Usuários",
+                "controller": "Admin\\Controller\\User",
+                "action": "index",
+                "privileges": {
+                    "POST": "Criar",
+                    "PUT": "Editar",
+                    "DELETE": "Excluir"
+                }
+            }
+        },
+        "total": 19,
+        "page_size": null,
+        "page": 1,
+        "order_by": [],
+        "search": []
+    }
+}
