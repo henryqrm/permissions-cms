@@ -1,0 +1,63 @@
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Panel heading</div>
+  <div class="panel-body">
+    <p>Lista de grupos</p>
+  </div>
+  <!-- Table -->
+  <table class="table">
+    <thead>
+      <tr>
+        <td>ID</td>
+        <td>Titulo</td>
+        <td>context</td>
+        <td>Status</td>
+        <td>Habilitado</td>
+        <td>Ação</td>
+        <td>Moderar</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="page in $ctrl.pages">
+        <td>{{page.id}}</td>
+        <td>{{page.title}}</td>
+        <td>{{page.context}}</td>
+        <td>{{page.status != 'moderator' ? page.status : 'Aguardando aprovação do moderador'}}</td>
+        <td>{{page.active}}</td>
+        <td>
+          <button class="btn glyphicon glyphicon-remove" ng-click="$ctrl.deletepage(page)"></button>
+          <button class="btn glyphicon glyphicon-pencil" ng-click="$ctrl.edit($index)"></button>
+        </td>
+        <td>
+          <button class="btn btn-primary glyphicon glyphicon-ok" ng-if="page.status === 'moderator'" ng-click="$ctrl.publish(page)"
+            title="Aprovar"></button>
+            <button class="btn btn-danger glyphicon glyphicon-minus" ng-if="page.status === 'published'" ng-click="$ctrl.publish(page)"
+              title="Despublicar"></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">NOVO/EDITAR</div>
+  <div class="panel-body">
+    <div class="input-group">
+      <span class="input-group-addon" id="basic-addon1">ID</span>
+      <input type="number" class="form-control" ng-model="$ctrl.newpage.id">
+    </div>
+    <div class="input-group">
+      <span class="input-group-addon" id="basic-addon1">Título</span>
+      <input type="text" class="form-control" ng-model="$ctrl.newpage.title">
+    </div>
+    <div class="input-group">
+      <span class="input-group-addon" id="basic-addon1">Texto</span>
+      <textarea class="form-control" ng-model="$ctrl.newpage.text"></textarea>
+    </div>
+    <div class="input-group">
+      <input id="basic" name="basic" type="checkbox" ng-model="$ctrl.newpage.active" placeholder="Username" aria-describedby="basic">
+      <label for="basic">Ativar</label>
+    </div>
+    <button class="btn glyphicon glyphicon-plus" ng-click="$ctrl.addpage()" ng-if="!$ctrl.isEdit"></button>
+    <button class="btn" ng-if="$ctrl.isEdit" ng-click="$ctrl.saveEdit()">Salvar</button>
+  </div>
+</div>
