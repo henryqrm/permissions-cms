@@ -5,8 +5,8 @@ import angular from 'angular';
 import ngCookies from 'angular-cookies';
 import ngResource from 'angular-resource';
 import ngSanitize from 'angular-sanitize';
-require('textangular/dist/textAngular-sanitize.min');
-import textAngular from 'textangular';
+// require('textangular/dist/textAngular-sanitize.min');
+// import textAngular from 'textangular';
 import 'angular-socket-io';
 
 import uiRouter from 'angular-ui-router';
@@ -34,12 +34,14 @@ import ResourceComponent from './resource/resource.component';
 import PageComponent from './page/page.component';
 import EventsComponent from './events/events.component';
 
+import Permission from '../components/permissions/permissions.module.js';
+
 
 import './app.scss';
 
 angular.module('tempApp', [ngCookies, ngResource, ngSanitize, 'btford.socket-io', uiRouter,
     uiBootstrap, _Auth, account, admin, navbar, footer, main, constants, socket, util, UserComponent, GroupComponent,
-    ResourceComponent, PageComponent, EventsComponent, textAngular
+    ResourceComponent, PageComponent, EventsComponent, Permission
   ])
   .config(routeConfig)
   .run(function ($rootScope, $location, Auth) {

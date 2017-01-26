@@ -45,7 +45,7 @@ let user = {
       }
     }]
   }, {
-    context: 'events',
+    context: 'event',
     items: [{
       id: 14,
       roles: {

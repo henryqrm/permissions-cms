@@ -148,7 +148,29 @@ User.find({}).remove()
         provider: 'local',
         name: 'Registrado',
         email: 'resgitrado@a.a',
-        password: 'asd'
+        password: 'asd',
+        group: 'Registrado',
+        permissions: [{
+          context: 'page',
+          items: [{
+            id: 12,
+            roles: {
+              c: false
+            }
+          }]
+        }, {
+          context: 'event',
+          items: [{
+            id: 14,
+            roles: {
+              c: true,
+              r: false,
+              u: false,
+              d: false,
+              p: false
+            }
+          }]
+        }]
       }, {
         id: 0,
         provider: 'local',
@@ -156,20 +178,63 @@ User.find({}).remove()
         isAdmin: true,
         name: 'Admin',
         email: 'admin@a.a',
-        password: 'asd'
+        password: 'asd',
+        group: 'Admin'
       }, {
         id: 22,
         provider: 'local',
         name: 'Editor',
         email: 'editor@a.a',
         password: 'asd',
-        moderators: [0, 33]
+        moderators: [0, 33],
+        group: 'Editor',
+        permissions: [{
+          context: 'page',
+          items: [{
+            id: 12,
+            roles: {
+              // c: false
+            }
+          }]
+        }, {
+          context: 'event',
+          items: [{
+            id: 14,
+            roles: {
+              // c: false,
+              // r: true,
+              // u: true,
+              // d: true,
+            }
+          }]
+        }]
       }, {
         id: 33,
         provider: 'local',
         name: 'Moderador',
         email: 'moderador@a.a',
-        password: 'asd'
+        password: 'asd',
+        group: 'Autor',
+        permissions: [{
+          context: 'page',
+          items: [{
+            id: 12,
+            roles: {
+              // c: false
+            }
+          }]
+        }, {
+          context: 'event',
+          items: [{
+            id: 14,
+            roles: {
+              // c: false,
+              // r: true,
+              // u: true,
+              // d: true,
+            }
+          }]
+        }]
       })
       .then(() => {
         console.log('finished populating users');
