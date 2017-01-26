@@ -18,6 +18,7 @@ Page.find({}).remove()
       text: 'Está é a página 1',
       context: 'page',
       status: 'moderator',
+      moderators: [33],
       active: true
     }, {
       id: 1,
@@ -25,6 +26,7 @@ Page.find({}).remove()
       text: 'Isso é a página dois',
       context: 'page',
       status: 'published',
+      moderators: [33],
       active: true
     });
   });
@@ -109,38 +111,6 @@ Group.find({}).remove()
     });
   });
 
-Thing.find({}).remove()
-  .then(() => {
-    Thing.create({
-      name: 'Development Tools',
-      info: 'Integration with popular tools such as Webpack, Gulp, Babel, TypeScript, Karma, ' +
-        'Mocha, ESLint, Node Inspector, Livereload, Protractor, Pug, ' +
-        'Stylus, Sass, and Less.'
-    }, {
-      name: 'Server and Client integration',
-      info: 'Built with a powerful and fun stack: MongoDB, Express, ' +
-        'AngularJS, and Node.'
-    }, {
-      name: 'Smart Build System',
-      info: 'Build system ignores `spec` files, allowing you to keep ' +
-        'tests alongside code. Automatic injection of scripts and ' +
-        'styles into your index.html'
-    }, {
-      name: 'Modular Structure',
-      info: 'Best practice client and server structures allow for more ' +
-        'code reusability and maximum scalability'
-    }, {
-      name: 'Optimized Build',
-      info: 'Build process packs up your templates as a single JavaScript ' +
-        'payload, minifies your scripts/css/images, and rewrites asset ' +
-        'names for caching.'
-    }, {
-      name: 'Deployment Ready',
-      info: 'Easily deploy your app to Heroku or Openshift with the heroku ' +
-        'and openshift subgenerators'
-    });
-  });
-
 User.find({}).remove()
   .then(() => {
     User.create({
@@ -153,7 +123,7 @@ User.find({}).remove()
         permissions: [{
           context: 'page',
           items: [{
-            id: 12,
+            id: 0,
             roles: {
               c: false
             }
@@ -161,7 +131,7 @@ User.find({}).remove()
         }, {
           context: 'event',
           items: [{
-            id: 14,
+            id: 0,
             roles: {
               c: true,
               r: false,
@@ -191,9 +161,14 @@ User.find({}).remove()
         permissions: [{
           context: 'page',
           items: [{
-            id: 12,
+            id: 0,
             roles: {
-              // c: false
+              c: true
+            }
+          }, {
+            id: 1,
+            roles: {
+              p: true
             }
           }]
         }, {
@@ -201,10 +176,10 @@ User.find({}).remove()
           items: [{
             id: 14,
             roles: {
-              // c: false,
-              // r: true,
-              // u: true,
-              // d: true,
+              c: false,
+              r: true,
+              u: true,
+              d: true,
             }
           }]
         }]
@@ -218,15 +193,15 @@ User.find({}).remove()
         permissions: [{
           context: 'page',
           items: [{
-            id: 12,
+            id: 0,
             roles: {
-              // c: false
+              c: false
             }
           }]
         }, {
           context: 'event',
           items: [{
-            id: 14,
+            id: 0,
             roles: {
               // c: false,
               // r: true,

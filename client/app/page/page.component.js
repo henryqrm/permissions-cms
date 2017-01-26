@@ -10,9 +10,10 @@ export class PageComponent {
   socket;
   pages = [];
   newpage = {};
+  Permission;
 
   /*@ngInject*/
-  constructor($http, $scope, socket) {
+  constructor($http, $scope, socket, Permission) {
     this.$http = $http;
     this.socket = socket;
 

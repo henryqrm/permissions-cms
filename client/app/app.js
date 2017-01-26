@@ -34,7 +34,7 @@ import ResourceComponent from './resource/resource.component';
 import PageComponent from './page/page.component';
 import EventsComponent from './events/events.component';
 
-import Permission from '../components/permissions/permissions.module.js';
+import Permission from '../components/permission/permission.service';
 
 
 import './app.scss';

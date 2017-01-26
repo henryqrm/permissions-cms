@@ -34,14 +34,9 @@ export class NavbarComponent {
     this.isLoggedIn = Auth.isLoggedInSync;
     this.isAdmin = Auth.isAdminSync;
     this.getCurrentUser = Auth.getCurrentUserSync;
+    this.getUser = Auth.getCurrentUser;
   }
-  $onInit() {
-    setTimeout(() => {
-      console.log(this.getCurrentUser());
-      console.log(this.isLoggedIn());
-      console.log(this.isAdmin());
-    }, 300);
-  }
+  $onInit() {}
 
 }
 

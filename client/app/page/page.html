@@ -28,7 +28,7 @@
           <button class="btn glyphicon glyphicon-remove" ng-click="$ctrl.deletepage(page)"></button>
           <button class="btn glyphicon glyphicon-pencil" ng-click="$ctrl.edit($index)"></button>
         </td>
-        <td>
+        <td can-publish context="{{page.context}}" context-id="page.id" moderadors="page.moderators">
           <button class="btn btn-primary glyphicon glyphicon-ok" ng-if="page.status === 'moderator'" ng-click="$ctrl.publish(page)"
             title="Aprovar"></button>
             <button class="btn btn-danger glyphicon glyphicon-minus" ng-if="page.status === 'published'" ng-click="$ctrl.publish(page)"
@@ -57,7 +57,7 @@
       <input id="basic" name="basic" type="checkbox" ng-model="$ctrl.newpage.active" placeholder="Username" aria-describedby="basic">
       <label for="basic">Ativar</label>
     </div>
-    <button class="btn glyphicon glyphicon-plus" ng-click="$ctrl.addpage()" ng-if="!$ctrl.isEdit"></button>
+    <button class="btn glyphicon glyphicon-plus" ng-click="$ctrl.addpage()" ng-if="!$ctrl.isEdit" can-create context="page" context-id="0" moderadors="[22]"></button>
     <button class="btn" ng-if="$ctrl.isEdit" ng-click="$ctrl.saveEdit()">Salvar</button>
   </div>
 </div>

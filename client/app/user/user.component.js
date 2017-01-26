@@ -6,15 +6,14 @@ const uiRouter = require('angular-ui-router');
 import routes from './user.routes';
 
 export class UserComponent {
-  Permission: Function;
   roles = {};
   /*@ngInject*/
   constructor(Permission) {
-    this.roles = Permission.roles();
+    this.roles = Permission.getRoles('pages');
     this.message = 'Hello';
   }
   $onInit() {
-    // console.log(this.roles);
+    console.log(this.roles);
   }
 }
 
