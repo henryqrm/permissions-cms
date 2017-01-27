@@ -3,26 +3,23 @@ import angular from 'angular';
 
 export function Permission(Auth, $q, $log, $http) {
   'ngInject';
+  console.time('Permissão:');
   var getUser = Auth.getCurrentUser;
+  var _User = null;
 
-  function mergeGroupPermissions() {
-    resources.forEach(permissionSuper => {
-      if (currentUser.group === permissionSuper.group) {
-        delete permissionSuper.group;
-        currentUser.permissions.forEach((permissionUser, index) => {
-          if (permissionUser.context === permissionSuper.permissions[0].context) {
-            const copy = Object.assign(permissionSuper.permissions[0].roles, permissionUser.items[0].roles);
-            currentUser.permissions[index].items[0].roles = copy;
-            // console.log();
-            // console.log(currentUser.permissions[index].items[0].roles);
-            // console.log();
-          }
-          // currentUser.permissions[index] = copy;
-          // console.log(permissionSuper.permissions);
-        });
-      }
-    });
-  }
+  var permissionsInMemory = [];
+  var inMemory = {
+    context: '',
+    contextId: '',
+    roles: {
+      c: false,
+      r: false,
+      u: false,
+      d: false,
+      p: false
+    }
+  };
+
 
   function checkPermission(context, contextId, moderators) {
     var defer = $q.defer();
@@ -42,43 +39,44 @@ export function Permission(Auth, $q, $log, $http) {
             p: true
           });
         } else {
-          user.permissions.forEach(permission => {
-            if (context === permission.context) {
-              permission.items.forEach(item => {
-                var roles = {};
-                // set Permission resource group
-                $http.get('/api/resources')
-                  .then(response => {
-                    var resources = response.data;
-                    for (var i = 0; i < resources.length; i++) {
-                      var resource = response.data[i];
-                      if (resource.group === user.group) {
-                        for (var j = 0; j < resource.contexts.length; j++) {
-                          var resourceContext = resource.contexts[j];
-                          if (resourceContext.name === context) {
-                            // set Permission custom
-                            if (contextId === item.id) {
-                              roles = {
-                                c: item.roles.c === undefined ? resourceContext.roles.c : item.roles.c,
-                                r: item.roles.r === undefined ? resourceContext.roles.r : item.roles.r,
-                                u: item.roles.u === undefined ? resourceContext.roles.u : item.roles.u,
-                                d: item.roles.d === undefined ? resourceContext.roles.d : item.roles.d,
-                                p: item.roles.p === undefined ? resourceContext.roles.p : item.roles.p
-                              };
-                            }
-                            // Verify moderator
-                            if (!roles.p) {
-                              roles.p = isModerator(moderators, user.id);
-                            }
-                            defer.resolve(roles);
-                          }
-                        }
-                      }
+          console.log(user.permissions.length);
+          if (user.permissions.length === 0) {
+            $log.info('Usuário sem permissões');
+            Auth.getCurrentContexts();
+            defer.resolve(Auth.getContextPermission(context));
+          } else {
+            $log.error('asdasdasd');
+
+            user.permissions.forEach(permission => {
+              if (context === permission.context) {
+                permission.items.forEach(item => {
+                  var contextPermission = Auth.getContextPermission(context);
+                  // set Permission custom
+                  setTimeout(() => {
+                    if (contextId === item.id) {
+                      console.log('Group: ', contextPermission);
+                      console.log('_User: ', item.roles);
+                      var currentRolesByContext = {
+                        c: item.roles.c === undefined ? contextPermission.c : item.roles.c,
+                        r: item.roles.r === undefined ? contextPermission.r : item.roles.r,
+                        u: item.roles.u === undefined ? contextPermission.u : item.roles.u,
+                        d: item.roles.d === undefined ? contextPermission.d : item.roles.d,
+                        p: item.roles.p === undefined ? contextPermission.p : item.roles.p
+                      };
+                      console.log('__New: ', currentRolesByContext);
+                      defer.resolve(currentRolesByContext);
+                      console.timeEnd('Permissão:');
                     }
-                  });
-              });
-            }
-          });
+                    // Verify moderator
+                    // if (!roles.p) {
+                    //   roles.p = isModerator(moderators, user.id);
+                    // }
+                    // defer.reject({});
+                  }, 0);
+                });
+              }
+            });
+          }
         }
       });
     return defer.promise;
@@ -94,65 +92,9 @@ export function Permission(Auth, $q, $log, $http) {
     }
   }
 
-  function canUpdate() {
-    var defer = $q.defer();
-    defer.resolve(true);
-    return defer.promise;
-  }
-
-  function canDelete() {
-    var defer = $q.defer();
-    getUser()
-      .then(user => {
-        defer.resolve(user.isAdmin);
-      });
-    return defer.promise;
-  }
-
-  function canCreate() {
-    var defer = $q.defer();
-    getUser()
-      .then(user => {
-        defer.resolve(user.isAdmin);
-      });
-    return defer.promise;
-  }
-
-  function canRemove() {
-    var defer = $q.defer();
-    defer.resolve(true);
-    return defer.promise;
-  }
-
-  function canPublish() {
-    var defer = $q.defer();
-    defer.resolve(true);
-    return defer.promise;
-  }
-
-  function roles() {
-    var defer = $q.defer();
-    defer.resolve(true);
-    return defer.promise;
-  }
-
-  function getRoles() {
-    var defer = $q.defer();
-    // checkPermission('context', );
-    defer.resolve(true);
-    return defer.promise;
-  }
-
   // Public API here
   return {
-    canUpdate,
-    canDelete,
-    canCreate,
-    canRemove,
-    canPublish,
-    checkPermission,
-    roles,
-    getRoles
+    checkPermission
   };
 }
 
@@ -169,8 +111,8 @@ export function canCreate(Permission) {
       Permission
         .checkPermission($scope.context, $scope.contextId, $scope.moderadors)
         .then(roles => {
-          console.log('LoadCanCreate: ' + roles.c);
-          if (!roles.c) {
+          console.log('id: ' + $scope.contextId + ' LoadCanCreate: ' + roles.c);
+          if (roles.c !== undefined && !roles.c) {
             elem.remove();
           }
         });
@@ -191,7 +133,7 @@ export function canDelete(Permission) {
       Permission
         .checkPermission($scope.context, $scope.contextId, $scope.moderadors)
         .then(roles => {
-          console.log('LoadCanDelete: ' + roles.d);
+          console.log('id: ' + $scope.contextId + ' LoadCanDelete: ' + roles.d);
           if (!roles.d) {
             elem.remove();
           }
@@ -209,11 +151,10 @@ export function canPublish(Permission) {
       moderadors: '='
     },
     link: function ($scope, elem, attr) {
-      console.log($scope.context, $scope.contextId, $scope.moderadors);
       Permission
         .checkPermission($scope.context, $scope.contextId, $scope.moderadors)
         .then(roles => {
-          console.log(roles);
+          console.log('id: ' + $scope.contextId + ' LoadcanPublish: ' + roles.p);
           if (!roles.p) {
             elem.remove();
           }
@@ -235,7 +176,7 @@ export function canRead(Permission) {
       Permission
         .checkPermission($scope.context, $scope.contextId, $scope.moderadors)
         .then(roles => {
-          console.log('LoadcanRead: ' + roles.r);
+          console.log('id: ' + $scope.contextId + ' LoadcanRead: ' + roles.r);
           if (!roles.r) {
             elem.remove();
           }
@@ -257,7 +198,7 @@ export function canUpdate(Permission) {
       Permission
         .checkPermission($scope.context, $scope.contextId, $scope.moderadors)
         .then(roles => {
-          console.log('LoadcanUpdate: ' + roles.u);
+          console.log('id: ' + $scope.contextId + ' LoadcanUpdate: ' + roles.u);
           if (!roles.u) {
             elem.remove();
           }
@@ -265,11 +206,12 @@ export function canUpdate(Permission) {
     }
   };
 }
+
 export default angular.module('tempApp.Permission', [])
   .factory('Permission', Permission)
-  // .directive('canCreate', canCreate)
-  // .directive('canDelete', canDelete)
-  // .directive('canPublish', canPublish)
-  // .directive('canRead', canRead)
-  // .directive('canUpdate', canUpdate)
+  .directive('canCreate', canCreate)
+  .directive('canDelete', canDelete)
+  .directive('canPublish', canPublish)
+  .directive('canRead', canRead)
+  .directive('canUpdate', canUpdate)
   .name;

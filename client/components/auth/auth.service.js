@@ -9,11 +9,14 @@ class _User {
   $promise = undefined;
 }
 
-export function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
+export function AuthService($location, $http, $cookies, $q, appConfig, Util, User, Resource) {
   'ngInject';
 
   var safeCb = Util.safeCb;
   var currentUser: _User = new _User();
+  var currentResource = null;
+  var currentContexts = null;
+  var contextPermission = null;
   var userRoles = appConfig.userRoles || [];
   /**
    * Check if userRole is >= role
@@ -27,8 +30,56 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
   if ($cookies.get('token') && $location.path() !== '/logout') {
     currentUser = User.get();
   }
+  if (currentResource === null) {
+    Resource
+      .get()
+      .then(response => {
+        currentResource = response.data;
+      });
+  }
 
   var Auth = {
+    getCurrentResource() {
+      if (currentResource === null) {
+        Auth.getResource();
+      }
+      return currentResource;
+    },
+    getCurrentContexts() {
+      if (currentContexts === null) {
+        for (var i = 0; i < currentResource.length; i++) {
+          var resource = currentResource[i];
+          if (resource.group === currentUser.group) {
+            currentContexts = resource.contexts;
+            return currentContexts;
+            // console.log(resource);
+          }
+        }
+      }
+      // console.log();
+      return currentContexts;
+    },
+    getContextPermission(context) {
+      if (contextPermission === null) {
+        for (var j = 0; j < currentContexts.length; j++) {
+          var currentContext = currentContexts[j];
+          if (currentContext.name === context) {
+            contextPermission = currentContext.roles;
+            return currentContext.roles;
+          }
+        }
+      }
+      return contextPermission;
+    },
+
+    getResource() {
+      Resource
+        .get()
+        .then(response => {
+          currentResource = response.data;
+          Auth.getCurrentContexts();
+        });
+    },
     /**
      * Authenticate user and save token
      *
@@ -136,7 +187,6 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
     getCurrentUserSync() {
       return currentUser;
     },
-
     /**
      * Check if a user is logged in
      *

@@ -86,6 +86,15 @@ Resource.find({}).remove()
           d: false,
           p: false
         }
+      }, {
+        name: 'event',
+        roles: {
+          c: true,
+          r: true,
+          u: false,
+          d: false,
+          p: false
+        }
       }]
     });
   });
@@ -125,7 +134,20 @@ User.find({}).remove()
           items: [{
             id: 0,
             roles: {
-              c: false
+              c: false,
+              r: true,
+              u: false,
+              d: false,
+              p: false
+            }
+          }, {
+            id: 1,
+            roles: {
+              c: false,
+              r: true,
+              u: false,
+              d: false,
+              p: false
             }
           }]
         }, {
@@ -158,31 +180,7 @@ User.find({}).remove()
         password: 'asd',
         moderators: [0, 33],
         group: 'Editor',
-        permissions: [{
-          context: 'page',
-          items: [{
-            id: 0,
-            roles: {
-              c: true
-            }
-          }, {
-            id: 1,
-            roles: {
-              p: true
-            }
-          }]
-        }, {
-          context: 'event',
-          items: [{
-            id: 14,
-            roles: {
-              c: false,
-              r: true,
-              u: true,
-              d: true,
-            }
-          }]
-        }]
+        permissions: []
       }, {
         id: 33,
         provider: 'local',

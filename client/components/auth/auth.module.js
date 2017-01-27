@@ -16,6 +16,9 @@ import {
 import {
   UserResource
 } from './user.service';
+import {
+  Resource
+} from './resource.service';
 
 import uiRouter from 'angular-ui-router';
 
@@ -30,5 +33,6 @@ export default angular.module('tempApp.auth', [constants, util, ngCookies, uiRou
   .run(routerDecorator)
   .factory('Auth', AuthService)
   .factory('User', UserResource)
+  .factory('Resource', Resource)
   .config(['$httpProvider', addInterceptor])
   .name;
