@@ -34,14 +34,15 @@ import ResourceComponent from './resource/resource.component';
 import PageComponent from './page/page.component';
 import EventsComponent from './events/events.component';
 
-import Permission from '../components/permission/permission.service';
+import PermissionModule from '../components/permission/permission.module';
 
-
+import 'v-accordion';
+import ngAnimate from 'angular-animate';
 import './app.scss';
 
-angular.module('tempApp', [ngCookies, ngResource, ngSanitize, 'btford.socket-io', uiRouter,
+angular.module('tempApp', [ngCookies, ngResource, ngSanitize, 'btford.socket-io', uiRouter, 'vAccordion', ngAnimate,
     uiBootstrap, _Auth, account, admin, navbar, footer, main, constants, socket, util, UserComponent, GroupComponent,
-    ResourceComponent, PageComponent, EventsComponent, Permission
+    ResourceComponent, PageComponent, EventsComponent, PermissionModule
   ])
   .config(routeConfig)
   .run(function ($rootScope, $location, Auth) {

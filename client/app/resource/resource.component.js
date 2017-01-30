@@ -25,7 +25,6 @@ export class ResourceComponent {
     this.$http.get('/api/resources')
       .then(response => {
         this.resources = response.data;
-        console.log(this.resources);
         this.socket.syncUpdates('resource', this.resources);
       });
   }

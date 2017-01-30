@@ -68,8 +68,8 @@ Resource.find({}).remove()
       }, {
         name: 'page',
         roles: {
-          c: true,
-          r: true,
+          c: false,
+          r: false,
           u: false,
           d: false,
           p: false
@@ -190,12 +190,7 @@ User.find({}).remove()
         group: 'Autor',
         permissions: [{
           context: 'page',
-          items: [{
-            id: 0,
-            roles: {
-              c: false
-            }
-          }]
+          items: []
         }, {
           context: 'event',
           items: [{

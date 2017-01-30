@@ -9,12 +9,12 @@ class _User {
   $promise = undefined;
 }
 
-export function AuthService($location, $http, $cookies, $q, appConfig, Util, User, Resource) {
+export function AuthService($location, $http, $cookies, $q, socket, appConfig, Util, User, Resource, $log) {
   'ngInject';
 
   var safeCb = Util.safeCb;
   var currentUser: _User = new _User();
-  var currentResource = null;
+  var currentResources = null;
   var currentContexts = null;
   var contextPermission = null;
   var userRoles = appConfig.userRoles || [];
@@ -30,25 +30,25 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
   if ($cookies.get('token') && $location.path() !== '/logout') {
     currentUser = User.get();
   }
-  if (currentResource === null) {
+  if (currentResources === null) {
     Resource
       .get()
       .then(response => {
-        currentResource = response.data;
+        currentResources = response.data;
       });
   }
 
   var Auth = {
-    getCurrentResource() {
-      if (currentResource === null) {
+    getCurrentResources() {
+      if (currentResources === null) {
         Auth.getResource();
       }
-      return currentResource;
+      return currentResources;
     },
     getCurrentContexts() {
       if (currentContexts === null) {
-        for (var i = 0; i < currentResource.length; i++) {
-          var resource = currentResource[i];
+        for (var i = 0; i < currentResources.length; i++) {
+          var resource = currentResources[i];
           if (resource.group === currentUser.group) {
             currentContexts = resource.contexts;
             return currentContexts;
@@ -76,7 +76,7 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
       Resource
         .get()
         .then(response => {
-          currentResource = response.data;
+          currentResources = response.data;
           Auth.getCurrentContexts();
         });
     },

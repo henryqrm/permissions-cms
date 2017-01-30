@@ -1,1 +1,35 @@
-{{$ctrl.roles}}
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <h2 class="pull-left">Usuários</h2>
+    <a class="btn btn-primary pull-right" ng-click="$ctrl.addpage()" ng-if="!$ctrl.isEdit"><i class="glyphicon glyphicon-plus"></i> Novo usuário </a>
+  </div>
+  <div class="col-md-10 col-md-offset-1">
+    <div class="panel panel-default">
+      <div class="panel-heading">Panel heading
+      </div>
+      <div class="panel-body">
+        <p>...</p>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nome</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="user in $ctrl.users">
+            <td>{{user.id}}</td>
+            <td>{{user.name}}</td>
+            <td>
+              <button class="btn btn-default glyphicon glyphicon-remove" ng-click="$ctrl.deletepage(page)"></button>
+              <button class="btn btn-default glyphicon glyphicon-pencil" ng-click="$ctrl.edit($index)"></button>
+              <a class="btn btn-default glyphicon glyphicon-wrench"></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+<div class="col-md-10">
+  <uib-accordion close-others="oneAtATime" ng-repeat="context in $ctrl.contexts">
+    <div uib-accordion-group class="panel-default" is-open="status.open">
+      <uib-accordion-heading>
+        {{context.context}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+      </uib-accordion-heading>
+      <div class="panel panel-default">
+        <table class="table">
+          <thead>
+            <tr>
+              <td>id</td>
+              <td>Titulo</td>
+              <td>Criar</td>
+              <td>Visualizar</td>
+              <td>Editar</td>
+              <td>Remover</td>
+              <td>Publicar</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="item in context.items">
+              <td>{{item.id}}</td>
+              <td>{{item.title}}</td>
+              <td><input type="checkbox" ng-model="$ctrl.users[$parent.$index].contexts[$index].roles.c" ng-click="$ctrl.edit(user)"></td>
+              <td><input type="checkbox" ng-model="$ctrl.users[$parent.$index].contexts[$index].roles.r" ng-click="$ctrl.edit(user)"></td>
+              <td><input type="checkbox" ng-model="$ctrl.users[$parent.$index].contexts[$index].roles.u" ng-click="$ctrl.edit(user)"></td>
+              <td><input type="checkbox" ng-model="$ctrl.users[$parent.$index].contexts[$index].roles.d" ng-click="$ctrl.edit(user)"></td>
+              <td><input type="checkbox" ng-model="$ctrl.users[$parent.$index].contexts[$index].roles.p" ng-click="$ctrl.edit(user)"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  </uib-accordion>
+  </div>
+</div>
