@@ -25,7 +25,7 @@
             <td>
               <button class="btn btn-default glyphicon glyphicon-remove" ng-click="$ctrl.deletepage(page)"></button>
               <button class="btn btn-default glyphicon glyphicon-pencil" ng-click="$ctrl.edit($index)"></button>
-              <a class="btn btn-default glyphicon glyphicon-wrench"></a>
+              <a ui-sref="permission({userId:user._id})" class="btn btn-default glyphicon glyphicon-wrench"></a>
             </td>
           </tr>
         </tbody>

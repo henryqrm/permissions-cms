@@ -37,20 +37,18 @@ export function Permission(Auth, $q, $log) {
           });
         } else {
           Auth.getCurrentContexts();
-          if (user.permissions.length === 0) {
+          if (user.permissions === undefined || user.permissions.length === 0) {
             $log.info('Usuário sem permissões');
             defer.resolve(setGroupPermissionsOnUser(context));
           } else {
             for (var i = 0; i < user.permissions.length; i++) {
               if (context === user.permissions[i].context) {
-                var count = 1;
                 user.permissions[i].items.forEach(item => {
                   var contextPermission = Auth.getContextPermission(context);
                   // set Permission custom
                   setTimeout(() => {
                     if (contextId === item.id) {
                       // console.log('count', count, context, contextId, 'user id context', item.id);
-                      count++;
                       // console.log('Group: ', contextPermission);
                       // console.log('_User: ', item.roles);
                       var currentRolesByContext = {
@@ -71,36 +69,6 @@ export function Permission(Auth, $q, $log) {
                 });
               }
             }
-            /** user.permissions.forEach(permission => {
-              if (context === permission.context) {
-                var count = 1;
-                permission.items.forEach(item => {
-                  var contextPermission = Auth.getContextPermission(context);
-                  // set Permission custom
-                  setTimeout(() => {
-                    if (contextId === item.id) {
-                      // console.log('count', count, context, contextId, 'user id context', item.id);
-                      count++;
-                      // console.log('Group: ', contextPermission);
-                      // console.log('_User: ', item.roles);
-                      var currentRolesByContext = {
-                        c: item.roles.c === undefined ? contextPermission.c : item.roles.c,
-                        r: item.roles.r === undefined ? contextPermission.r : item.roles.r,
-                        u: item.roles.u === undefined ? contextPermission.u : item.roles.u,
-                        d: item.roles.d === undefined ? contextPermission.d : item.roles.d,
-                        p: item.roles.p === undefined ? contextPermission.p : item.roles.p
-                      };
-                      // Verify moderator
-                      if (!currentRolesByContext.p) {
-                        currentRolesByContext.p = isModerator(moderators, user.id);
-                      }
-                      // console.log('__New: ', currentRolesByContext);
-                      defer.resolve(currentRolesByContext);
-                    }
-                  }, 0);
-                });
-              }
-      });*/
           }
         }
       })

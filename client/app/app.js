@@ -11,6 +11,7 @@ import 'angular-socket-io';
 
 import uiRouter from 'angular-ui-router';
 import uiBootstrap from 'angular-ui-bootstrap';
+
 // import ngMessages from 'angular-messages';
 // import ngValidationMatch from 'angular-validation-match';
 
@@ -40,7 +41,9 @@ import 'v-accordion';
 import ngAnimate from 'angular-animate';
 import './app.scss';
 
-angular.module('tempApp', [ngCookies, ngResource, ngSanitize, 'btford.socket-io', uiRouter, 'vAccordion', ngAnimate,
+// import 'angular-bootstrap-toggle';
+
+angular.module('tempApp', [ngCookies, ngResource, ngSanitize, 'btford.socket-io', uiRouter,'vAccordion', ngAnimate,
     uiBootstrap, _Auth, account, admin, navbar, footer, main, constants, socket, util, UserComponent, GroupComponent,
     ResourceComponent, PageComponent, EventsComponent, PermissionModule
   ])

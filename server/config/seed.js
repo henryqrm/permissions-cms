@@ -61,18 +61,18 @@ Resource.find({}).remove()
         roles: {
           c: true,
           r: true,
-          u: false,
-          d: false,
-          p: false
+          u: true,
+          d: true,
+          p: true
         }
       }, {
         name: 'page',
         roles: {
-          c: false,
-          r: false,
-          u: false,
-          d: false,
-          p: false
+          c: true,
+          r: true,
+          u: true,
+          d: true,
+          p: true
         }
       }]
     }, {
@@ -190,16 +190,35 @@ User.find({}).remove()
         group: 'Autor',
         permissions: [{
           context: 'page',
-          items: []
+          items: [{
+            id: 0,
+            roles: {
+              c: false,
+              r: false,
+              u: false,
+              d: false,
+              p: false
+            }
+          }, {
+            id: 1,
+            roles: {
+              c: false,
+              r: false,
+              u: false,
+              d: false,
+              p: false
+            }
+          }]
         }, {
           context: 'event',
           items: [{
             id: 0,
             roles: {
-              // c: false,
-              // r: true,
-              // u: true,
-              // d: true,
+              c: false,
+              r: false,
+              u: false,
+              d: false,
+              p: false
             }
           }]
         }]

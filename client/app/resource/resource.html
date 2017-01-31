@@ -7,18 +7,20 @@
       <table class="table">
         <thead>
           <tr>
-            <td>Contexto</td>
-            <td>Criar</td>
-            <td>Visualizar</td>
-            <td>Editar</td>
-            <td>Remover</td>
-            <td>Publicar</td>
+            <th>Contexto</th>
+            <th>Criar</th>
+            <th>Visualizar</th>
+            <th>Editar</th>
+            <th>Remover</th>
+            <th>Publicar</th>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat="context in resource.contexts">
             <td>{{context.name}}</td>
-            <td><input type="checkbox" ng-model="$ctrl.resources[$parent.$index].contexts[$index].roles.c" ng-click="$ctrl.edit(resource)"></td>
+            <td>
+              <input type="checkbox" ng-model="$ctrl.resources[$parent.$index].contexts[$index].roles.c" ng-click="$ctrl.edit(resource)">
+            </td>
             <td><input type="checkbox" ng-model="$ctrl.resources[$parent.$index].contexts[$index].roles.r" ng-click="$ctrl.edit(resource)"></td>
             <td><input type="checkbox" ng-model="$ctrl.resources[$parent.$index].contexts[$index].roles.u" ng-click="$ctrl.edit(resource)"></td>
             <td><input type="checkbox" ng-model="$ctrl.resources[$parent.$index].contexts[$index].roles.d" ng-click="$ctrl.edit(resource)"></td>

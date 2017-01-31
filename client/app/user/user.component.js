@@ -3,6 +3,8 @@ const angular = require('angular');
 
 const uiRouter = require('angular-ui-router');
 
+import permission from './permission/user.permission.component';
+
 import routes from './user.routes';
 
 export class UserComponent {
@@ -30,7 +32,6 @@ export class UserComponent {
         console.log(this.users);
         this.socket.syncUpdates('user', this.users);
       });
-    this.getContexts();
   }
 
   adduser() {
@@ -43,58 +44,13 @@ export class UserComponent {
       this.newuser = {};
     }
   }
-  edit(user) {
-    this.$http.put(`/api/users/${user._id}`, user);
-  }
 
   deleteresource(resource) {
     this.$http.delete(`/api/users/${resource._id}`);
   }
-
-  show() {
-    console.log(this.contexts);
-  }
-
-  setCanCreate() {
-
-  }
-
-  setCanRead(userId, context) {
-
-  }
-
-  setCanUpdate() {
-
-  }
-
-  setCanDelete() {
-
-  }
-
-  setCanPublish() {
-
-  }
-
-  getContexts() {
-    this.$http.get('/api/pages')
-      .then(response => {
-        this.contexts.push({
-          context: 'page',
-          items: response.data
-        });
-      });
-
-    this.$http.get('/api/events')
-      .then(response => {
-        this.contexts.push({
-          context: 'event',
-          items: response.data
-        });
-      });
-  }
 }
 
-export default angular.module('tempApp.user', [uiRouter])
+export default angular.module('tempApp.user', [uiRouter, permission])
   .config(routes)
   .component('user', {
     template: require('./user.html'),
