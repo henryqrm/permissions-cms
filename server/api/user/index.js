@@ -13,6 +13,8 @@ router.get('/', auth.isAuthenticated(), controller.index);
 router.delete('/:id', auth.isAuthenticated(), controller.destroy);
 router.get('/me', auth.isAuthenticated(), controller.me);
 router.put('/:id/password', auth.isAuthenticated(), controller.changePassword);
+router.put('/:id', auth.isAuthenticated(), controller.upsert);
+router.patch('/:id', auth.isAuthenticated(), controller.patch);
 router.get('/:id', auth.isAuthenticated(), controller.show);
 router.post('/', controller.create);
 

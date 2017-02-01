@@ -27,6 +27,13 @@ export class GroupComponent {
         this.groups = response.data;
         this.socket.syncUpdates('group', this.groups);
       });
+    this.selected = [];
+
+    this.query = {
+      order: 'name',
+      limit: 5,
+      page: 1
+    };
   }
 
   addgroup() {
@@ -38,6 +45,19 @@ export class GroupComponent {
       });
       this.newgroup = {};
     }
+  }
+
+  edit(index) {
+    this.isEdit = true;
+    this.newgroup = this.groups[index];
+  }
+
+  saveEdit() {
+    this.$http.put(`/api/groups/${this.newgroup._id}`, this.newgroup)
+      .then(() => {
+        this.isEdit = false;
+        this.newgroup = {};
+      });
   }
 
   deletegroup(group) {

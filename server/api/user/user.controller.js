@@ -3,17 +3,39 @@
 import User from './user.model';
 import config from '../../config/environment';
 import jwt from 'jsonwebtoken';
+import jsonpatch from 'fast-json-patch';
+
+function respondWithResult(res, statusCode) {
+  statusCode = statusCode || 200;
+  return function (entity) {
+    if (entity) {
+      return res.status(statusCode).json(entity);
+    }
+    return null;
+  };
+}
+
+function patchUpdates(patches) {
+  return function (entity) {
+    try {
+      jsonpatch.apply(entity, patches, /*validate*/ true);
+    } catch (err) {
+      return Promise.reject(err);
+    }
+    return entity.save();
+  };
+}
 
 function validationError(res, statusCode) {
   statusCode = statusCode || 422;
-  return function(err) {
+  return function (err) {
     return res.status(statusCode).json(err);
   };
 }
 
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
-  return function(err) {
+  return function (err) {
     return res.status(statusCode).send(err);
   };
 }
@@ -30,6 +52,17 @@ export function index(req, res) {
     .catch(handleError(res));
 }
 
+
+function handleEntityNotFound(res) {
+  return function (entity) {
+    if (!entity) {
+      res.status(404).end();
+      return null;
+    }
+    return entity;
+  };
+}
+
 /**
  * Creates a new user
  */
@@ -38,13 +71,47 @@ export function create(req, res) {
   newUser.provider = 'local';
   newUser.role = 'user';
   newUser.save()
-    .then(function(user) {
-      var token = jwt.sign({ _id: user._id }, config.secrets.session, {
+    .then(function (user) {
+      var token = jwt.sign({
+        _id: user._id
+      }, config.secrets.session, {
         expiresIn: 60 * 60 * 5
       });
-      res.json({ token });
+      res.json({
+        token
+      });
     })
     .catch(validationError(res));
+}
+
+// Upserts the given User in the DB at the specified ID
+export function upsert(req, res) {
+  if (req.body._id) {
+    delete req.body._id;
+  }
+  console.log(req.body);
+  res.json({});
+  return User.findOneAndUpdate({
+      _id: req.params.id
+    }, req.body, {
+      new: true,
+      upsert: true,
+      setDefaultsOnInsert: true,
+    }).exec()
+    .then(respondWithResult(res))
+    .catch(handleError(res));
+}
+
+// Updates an existing User in the DB
+export function patch(req, res) {
+  if (req.body._id) {
+    delete req.body._id;
+  }
+  return User.findById(req.params.id).exec()
+    .then(handleEntityNotFound(res))
+    .then(patchUpdates(req.body))
+    .then(respondWithResult(res))
+    .catch(handleError(res));
 }
 
 /**
@@ -55,7 +122,7 @@ export function show(req, res, next) {
 
   return User.findById(userId).exec()
     .then(user => {
-      if(!user) {
+      if (!user) {
         return res.status(404).end();
       }
       res.json(user);
@@ -69,7 +136,7 @@ export function show(req, res, next) {
  */
 export function destroy(req, res) {
   return User.findByIdAndRemove(req.params.id).exec()
-    .then(function() {
+    .then(function () {
       res.status(204).end();
     })
     .catch(handleError(res));
@@ -85,7 +152,7 @@ export function changePassword(req, res) {
 
   return User.findById(userId).exec()
     .then(user => {
-      if(user.authenticate(oldPass)) {
+      if (user.authenticate(oldPass)) {
         user.password = newPass;
         return user.save()
           .then(() => {
@@ -104,9 +171,11 @@ export function changePassword(req, res) {
 export function me(req, res, next) {
   var userId = req.user._id;
 
-  return User.findOne({ _id: userId }, '-salt -password').exec()
+  return User.findOne({
+      _id: userId
+    }, '-salt -password').exec()
     .then(user => { // don't ever give out the password or salt
-      if(!user) {
+      if (!user) {
         return res.status(401).end();
       }
       res.json(user);

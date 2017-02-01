@@ -100,7 +100,11 @@ export function Permission(Auth, $q, $log) {
     return false;
   }
 
-  function checkReadPage(context, moderators) {
+  function checkReadContext(context, moderators) {
+
+  }
+
+  function checkCreateContext() {
 
   }
 

@@ -5,11 +5,7 @@ export default function ($stateProvider) {
   $stateProvider
     .state('user', {
       url: '/user',
-      template: '<user></user>'
-      // resolve: {
-      //   Roles: function () {
-      //     return 
-      //   }
-      // }
+      template: '<user></user>',
+      authenticate: true
     });
 }

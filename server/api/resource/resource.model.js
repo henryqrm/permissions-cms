@@ -8,13 +8,15 @@ var ResourceSchema = new mongoose.Schema({
     name: String,
     roles: {
       c: Boolean,
-      r: Boolean,
+      r: {
+        type: Boolean,
+        default: true
+      },
       u: Boolean,
       d: Boolean,
       p: Boolean
     }
-  }],
-  active: Boolean
+  }]
 });
 
 export default mongoose.model('Resource', ResourceSchema);

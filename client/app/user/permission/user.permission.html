@@ -1,37 +1,39 @@
-<div class="col-md-10">
-  <h2>{{$ctrl.user.name}} - {{$ctrl.user.group}}</h2>
-  <div ng-if="$ctrl.user.isAdmin">Usuário é admin</div>
-  <uib-accordion close-others="oneAtATime" ng-repeat="context in $ctrl.contexts track by $index" ng-if="!$ctrl.user.isAdmin">
-    <div uib-accordion-group class="panel-default" is-open="status.open">
-      <uib-accordion-heading>
-        {{context.context}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
-      </uib-accordion-heading>
-      <div class="panel panel-default">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>id</th>
-              <th>Titulo</th>
-              <th>Criar</th>
-              <th>Visualizar</th>
-              <th>Editar</th>
-              <th>Remover</th>
-              <th>Publicar</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr ng-repeat="item in context.items">
-              <td>{{item.id}}</td>
-              <td>{{item.title}}</td>
-              <td><input type="checkbox" ng-model="$ctrl.contexts[$parent.$index].items[$index].roles.c" ng-click="$ctrl.setPermission(item.context, item.id, {c: $ctrl.contexts[$parent.$index].items[$index].roles.c})"></td>
-              <td><input type="checkbox" ng-model="$ctrl.contexts[$parent.$index].items[$index].roles.r" ng-click="$ctrl.setPermission(item.context, item.id, {r: $ctrl.contexts[$parent.$index].items[$index].roles.r});"></td>
-              <td><input type="checkbox" ng-model="$ctrl.contexts[$parent.$index].items[$index].roles.u" ng-click="$ctrl.setPermission(item.context, item.id, {u: $ctrl.contexts[$parent.$index].items[$index].roles.u});"></td>
-              <td><input type="checkbox" ng-model="$ctrl.contexts[$parent.$index].items[$index].roles.d" ng-click="$ctrl.setPermission(item.context, item.id, {d: $ctrl.contexts[$parent.$index].items[$index].roles.d});"></td>
-              <td><input type="checkbox" ng-model="$ctrl.contexts[$parent.$index].items[$index].roles.p" ng-click="$ctrl.setPermission(item.context, item.id, {p: $ctrl.contexts[$parent.$index].items[$index].roles.p});"></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-  </uib-accordion>
+<div class="row">
+  <div class="col-xs-offset-1 col-xs-10">
+    <h2>{{$ctrl.user.name}} - {{$ctrl.user.group}}</h2>
+    <div ng-if="$ctrl.user.isAdmin">Usuário é admin</div>
+    <uib-accordion close-others="oneAtATime" ng-repeat="context in $ctrl.contexts track by $index" ng-if="!$ctrl.user.isAdmin">
+      <div uib-accordion-group class="panel-default" is-open="status.open">
+        <uib-accordion-heading>
+          {{context.context}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+        </uib-accordion-heading>
+        <div class="panel panel-default">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>Titulo</th>
+                <th>Criar</th>
+                <th>Visualizar</th>
+                <th>Editar</th>
+                <th>Remover</th>
+                <th>Publicar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in context.items">
+                <td>{{item.id}}</td>
+                <td>{{item.title}}</td>
+                <td><input type="checkbox" ng-model="$ctrl.contexts[$parent.$index].items[$index].roles.c" ng-click="$ctrl.setPermission(item.context, item.id, {c: $ctrl.contexts[$parent.$index].items[$index].roles.c})"></td>
+                <td><input type="checkbox" ng-model="$ctrl.contexts[$parent.$index].items[$index].roles.r" ng-click="$ctrl.setPermission(item.context, item.id, {r: $ctrl.contexts[$parent.$index].items[$index].roles.r});"></td>
+                <td><input type="checkbox" ng-model="$ctrl.contexts[$parent.$index].items[$index].roles.u" ng-click="$ctrl.setPermission(item.context, item.id, {u: $ctrl.contexts[$parent.$index].items[$index].roles.u});"></td>
+                <td><input type="checkbox" ng-model="$ctrl.contexts[$parent.$index].items[$index].roles.d" ng-click="$ctrl.setPermission(item.context, item.id, {d: $ctrl.contexts[$parent.$index].items[$index].roles.d});"></td>
+                <td><input type="checkbox" ng-model="$ctrl.contexts[$parent.$index].items[$index].roles.p" ng-click="$ctrl.setPermission(item.context, item.id, {p: $ctrl.contexts[$parent.$index].items[$index].roles.p});"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </uib-accordion>
+    </div>
   </div>
 </div>

@@ -5,6 +5,7 @@ export default function($stateProvider) {
   $stateProvider
     .state('group', {
       url: '/group',
-      template: '<group></group>'
+      template: '<group></group>',
+      authenticate: true
     });
 }

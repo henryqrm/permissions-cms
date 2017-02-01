@@ -8,7 +8,6 @@ import ngSanitize from 'angular-sanitize';
 // require('textangular/dist/textAngular-sanitize.min');
 // import textAngular from 'textangular';
 import 'angular-socket-io';
-
 import uiRouter from 'angular-ui-router';
 import uiBootstrap from 'angular-ui-bootstrap';
 
@@ -41,9 +40,11 @@ import 'v-accordion';
 import ngAnimate from 'angular-animate';
 import './app.scss';
 
+import 'angular-material-data-table';
+import mdAngular from 'angular-material';
 // import 'angular-bootstrap-toggle';
 
-angular.module('tempApp', [ngCookies, ngResource, ngSanitize, 'btford.socket-io', uiRouter,'vAccordion', ngAnimate,
+angular.module('tempApp', [ngCookies, ngResource, ngSanitize, 'btford.socket-io', mdAngular, uiRouter, 'md.data.table', 'vAccordion', ngAnimate,
     uiBootstrap, _Auth, account, admin, navbar, footer, main, constants, socket, util, UserComponent, GroupComponent,
     ResourceComponent, PageComponent, EventsComponent, PermissionModule
   ])

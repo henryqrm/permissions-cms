@@ -9,6 +9,7 @@ import User from '../api/user/user.model';
 import Group from '../api/group/group.model';
 import Resource from '../api/resource/resource.model';
 import Page from '../api/page/page.model';
+import Event from '../api/event/event.model';
 
 Page.find({}).remove()
   .then(() => {
@@ -169,59 +170,9 @@ User.find({}).remove()
         role: 'admin',
         isAdmin: true,
         name: 'Admin',
-        email: 'admin@a.a',
-        password: 'asd',
+        email: 'admin@admin.com',
+        password: 'admin',
         group: 'Admin'
-      }, {
-        id: 22,
-        provider: 'local',
-        name: 'Editor',
-        email: 'editor@a.a',
-        password: 'asd',
-        moderators: [0, 33],
-        group: 'Editor',
-        permissions: []
-      }, {
-        id: 33,
-        provider: 'local',
-        name: 'Moderador',
-        email: 'moderador@a.a',
-        password: 'asd',
-        group: 'Autor',
-        permissions: [{
-          context: 'page',
-          items: [{
-            id: 0,
-            roles: {
-              c: false,
-              r: false,
-              u: false,
-              d: false,
-              p: false
-            }
-          }, {
-            id: 1,
-            roles: {
-              c: false,
-              r: false,
-              u: false,
-              d: false,
-              p: false
-            }
-          }]
-        }, {
-          context: 'event',
-          items: [{
-            id: 0,
-            roles: {
-              c: false,
-              r: false,
-              u: false,
-              d: false,
-              p: false
-            }
-          }]
-        }]
       })
       .then(() => {
         console.log('finished populating users');

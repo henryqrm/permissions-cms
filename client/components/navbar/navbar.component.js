@@ -11,14 +11,14 @@ export class NavbarComponent {
     title: 'Grupo',
     state: 'group'
   }, {
-    title: 'Páginas',
-    state: 'page'
+    title: 'Resource',
+    state: 'resource'
   }, {
     title: 'Usuários',
     state: 'user'
   }, {
-    title: 'Resource',
-    state: 'resource'
+    title: 'Páginas',
+    state: 'page'
   }, {
     title: 'Eventos',
     state: 'events'

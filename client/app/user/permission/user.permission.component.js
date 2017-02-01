@@ -121,8 +121,10 @@ export class PermissionComponent {
         this.user.permissions.push(this.newRole(contextName, contextId, roles));
       }
     }
-    console.log(this.user.permissions);
+    console.log(this.user);
+    this.$http.put(`/api/users/${this.user._id}`, this.user);
   }
+
 
   newItemRole(contextId, roles) {
     return {
@@ -179,10 +181,6 @@ export class PermissionComponent {
       }
     }
     return false;
-  }
-
-  edit(user) {
-    this.$http.put(`/api/users/${user._id}`, user);
   }
 
   getContexts() {
