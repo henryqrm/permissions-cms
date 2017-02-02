@@ -3,24 +3,11 @@ export function Permission(Auth, $q, $log) {
   'ngInject';
   console.time('Permissão:');
   var getUser = Auth.getCurrentUser;
-  var _User = null;
-
-  var permissionsInMemory = [];
-  var inMemory = {
-    context: '',
-    contextId: '',
-    roles: {
-      c: false,
-      r: false,
-      u: false,
-      d: false,
-      p: false
-    }
-  };
 
   function checkPermission(context, contextId, moderators) {
     var defer = $q.defer();
     if (!context && !contextId) {
+      console.log(context, contextId, moderators);
       $log.error('context/contextId não definido');
       defer.resolve(false);
       return defer.promise;
@@ -37,14 +24,23 @@ export function Permission(Auth, $q, $log) {
           });
         } else {
           Auth.getCurrentContexts();
+          var contextPermission = setGroupPermissionsOnUser(context);
           if (user.permissions === undefined || user.permissions.length === 0) {
-            $log.info('Usuário sem permissões');
-            defer.resolve(setGroupPermissionsOnUser(context));
+            var moderador = contextPermission.p;
+            if (!moderador) {
+              moderador = isModerator(moderators, user.id);
+            }
+            defer.resolve({
+              c: contextPermission.c,
+              r: contextPermission.r,
+              u: contextPermission.u,
+              d: contextPermission.d,
+              p: moderador
+            });
           } else {
             for (var i = 0; i < user.permissions.length; i++) {
               if (context === user.permissions[i].context) {
                 user.permissions[i].items.forEach(item => {
-                  var contextPermission = Auth.getContextPermission(context);
                   // set Permission custom
                   setTimeout(() => {
                     if (contextId === item.id) {
@@ -59,6 +55,7 @@ export function Permission(Auth, $q, $log) {
                         p: item.roles.p === undefined ? contextPermission.p : item.roles.p
                       };
                       // Verify moderator
+                      console.log('É moderador?', !currentRolesByContext.p);
                       if (!currentRolesByContext.p) {
                         currentRolesByContext.p = isModerator(moderators, user.id);
                       }
@@ -83,7 +80,6 @@ export function Permission(Auth, $q, $log) {
         });
       });
     return defer.promise;
-    // isModerator(User.id, context);
   }
 
   function setGroupPermissionsOnUser(context) {

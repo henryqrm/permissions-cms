@@ -1,0 +1,58 @@
+<div class="row">
+  <div class="col-xs-10 col-xs-offset-1">
+    <div class="panel panel-default">
+      <div class="panel-heading">NOVO/EDITAR</div>
+      <div class="panel-body">
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">ID</span>
+            <input type="number" class="form-control" ng-model="$ctrl.newuser.id">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Name</span>
+            <input type="text" class="form-control" ng-model="$ctrl.newuser.name">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon">Email</span>
+            <input id="email" name="email" type="email" class="form-control" ng-model="$ctrl.newuser.email">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Grupo</span>
+            <select class="form-control" ng-model="$ctrl.newuser.group" ng-disabled="$ctrl.newuser.isAdmin">
+                <option value="{{group.name}}" ng-repeat="group in $ctrl.groups">{{group.name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Moderadores</span>
+            <select multiple class="form-control" ng-model="$ctrl.newuser.moderators">
+                <option value="{{user.id}}" ng-repeat="user in $ctrl.users">{{user.name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <input id="basicadmin" name="basicadmin" type="checkbox" ng-model="$ctrl.newuser.isAdmin" aria-describedby="basic" ng-click="$ctrl.newuser.isAdmin ? $ctrl.newuser.group = 'Admin' : $ctrl.newuser.group = ''">
+            <label for="basicadmin">Administrador</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <input id="basic" name="basic" type="checkbox" ng-model="$ctrl.newuser.active" placeholder="Username" aria-describedby="basic">
+            <label for="basic">Ativar</label>
+          </div>
+        </div>
+        <button class="btn glyphicon glyphicon-plus" ng-click="$ctrl.save()"></button>
+        <button class="btn" ng-if="$ctrl.isEdit" ng-click="$ctrl.saveEdit()">Salvar</button>
+        {{$ctrl.newuser}}
+      </div>
+    </div>
+  </div>
+</div>

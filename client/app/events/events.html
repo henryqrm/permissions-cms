@@ -33,10 +33,12 @@
                   ng-click="$ctrl.edit($index)"></button>
             </td>
             <td>
-              <button class="btn btn-primary glyphicon glyphicon-ok" ng-if="event.status === 'moderator'" ng-click="$ctrl.publish(event)"
-                title="Aprovar"></button>
-                <button class="btn btn-danger glyphicon glyphicon-minus" ng-if="event.status === 'published'" ng-click="$ctrl.publish(event)"
-                  title="Despublicar"></button>
+              <div can-publish context="{{event.context}}" context-id="event.id" moderadors="event.moderators">
+                <button class="btn btn-primary glyphicon glyphicon-ok" ng-if="event.status === 'moderator'" ng-click="$ctrl.publish(event)"
+                  title="Aprovar"></button>
+                  <button class="btn btn-danger glyphicon glyphicon-minus" ng-if="event.status === 'published'" ng-click="$ctrl.publish(event)"
+                    title="Despublicar"></button>
+              </div>
             </td>
           </tr>
         </tbody>

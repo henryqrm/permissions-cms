@@ -7,7 +7,7 @@ var EventSchema = new mongoose.Schema({
   title: String,
   text: String,
   context: String,
-  moderators: [String],
+  moderators: [Number],
   status: String,
   active: Boolean
 });

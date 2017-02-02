@@ -13,9 +13,10 @@ export class PageComponent {
   Permission;
 
   /*@ngInject*/
-  constructor($http, $scope, socket, Permission) {
+  constructor($http, $scope, socket, Permission, Auth) {
     this.$http = $http;
     this.socket = socket;
+    this.Auth = Auth;
 
     $scope.$on('$destroy', function () {
       socket.unsyncUpdates('page');
@@ -36,7 +37,7 @@ export class PageComponent {
         id: this.newpage.id,
         text: this.newpage.text,
         context: 'page',
-        // moderators: [String],
+        moderators: this.Auth.getCurrentUserSync().moderators,
         status: 'moderator',
         title: this.newpage.title,
         active: this.newpage.active,

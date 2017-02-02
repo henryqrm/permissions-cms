@@ -8,15 +8,6 @@ export class NavbarComponent {
     title: 'Home',
     state: 'main'
   }, {
-    title: 'Grupo',
-    state: 'group'
-  }, {
-    title: 'Resource',
-    state: 'resource'
-  }, {
-    title: 'Usuários',
-    state: 'user'
-  }, {
     title: 'Páginas',
     state: 'page'
   }, {
