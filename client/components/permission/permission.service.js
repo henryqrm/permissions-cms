@@ -41,8 +41,7 @@ export function Permission(Auth, $q, $log) {
                 p: contextPermission.p
               });
             }, 0);
-          }
-          if (user.permissions === undefined || user.permissions.length === 0) {
+          } else if (user.permissions === undefined || user.permissions.length === 0) {
             var moderator = contextPermission.p;
             if (!moderator) {
               moderator = isModerator(moderators, user.id);
@@ -56,6 +55,8 @@ export function Permission(Auth, $q, $log) {
             });
           } else {
             for (var i = 0; i < user.permissions.length; i++) {
+
+              // TODO: Se não existe permissão, colocar a default do group
               if (context === user.permissions[i].context) {
                 user.permissions[i].items.forEach(item => {
                   // set Permission custom
