@@ -21,6 +21,14 @@ import {
   canPublish
 } from './permission.can.publish.directive';
 
+import {
+  canContextCreate
+} from './permission.context.create.directive';
+
+import {
+  canContextRead
+} from './permission.context.read.directive';
+
 export default angular.module('tempApp.Permission', [])
   .factory('Permission', Permission)
   // .factory('Resource', Resource)
@@ -29,5 +37,6 @@ export default angular.module('tempApp.Permission', [])
   .directive('canUpdate', canUpdate)
   .directive('canDelete', canDelete)
   .directive('canPublish', canPublish)
-  // .directive('permissionInit', permissionInit)
+  .directive('canContextCreate', canContextCreate)
+  .directive('canContextRead', canContextRead)
   .name;

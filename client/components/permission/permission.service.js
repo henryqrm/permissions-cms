@@ -7,7 +7,6 @@ export function Permission(Auth, $q, $log) {
   function checkPermission(context, contextId, moderators) {
     var defer = $q.defer();
     if (!context && !contextId) {
-      console.log(context, contextId, moderators);
       $log.error('context/contextId não definido');
       defer.resolve(false);
       return defer.promise;
@@ -25,17 +24,35 @@ export function Permission(Auth, $q, $log) {
         } else {
           Auth.getCurrentContexts();
           var contextPermission = setGroupPermissionsOnUser(context);
+          if (!contextId && moderators === undefined) {
+            setTimeout(() => {
+              var read = contextPermission.r;
+              console.log(hasPermission(user.permissions, context));
+              if (!read) {
+                read = hasPermission(user.permissions, context);
+              }
+              console.log('ITEM', context, read);
+              console.log('Group Role', contextPermission);
+              defer.resolve({
+                c: contextPermission.c,
+                r: read,
+                u: contextPermission.u,
+                d: contextPermission.d,
+                p: contextPermission.p
+              });
+            }, 0);
+          }
           if (user.permissions === undefined || user.permissions.length === 0) {
-            var moderador = contextPermission.p;
-            if (!moderador) {
-              moderador = isModerator(moderators, user.id);
+            var moderator = contextPermission.p;
+            if (!moderator) {
+              moderator = isModerator(moderators, user.id);
             }
             defer.resolve({
               c: contextPermission.c,
               r: contextPermission.r,
               u: contextPermission.u,
               d: contextPermission.d,
-              p: moderador
+              p: moderator
             });
           } else {
             for (var i = 0; i < user.permissions.length; i++) {
@@ -55,7 +72,7 @@ export function Permission(Auth, $q, $log) {
                         p: item.roles.p === undefined ? contextPermission.p : item.roles.p
                       };
                       // Verify moderator
-                      console.log('É moderador?', !currentRolesByContext.p);
+                      console.log('É moderator?', !currentRolesByContext.p);
                       if (!currentRolesByContext.p) {
                         currentRolesByContext.p = isModerator(moderators, user.id);
                       }
@@ -71,15 +88,30 @@ export function Permission(Auth, $q, $log) {
       })
       .catch(() => {
         $log.error('User is not logged');
-        defer.resolve({
-          c: false,
-          r: false,
-          u: false,
-          d: false,
-          p: false
-        });
+
+        Auth.getCurrentContexts();
+        var contextPermission = setGroupPermissionsOnUser(context);
+        defer.resolve(contextPermission);
       });
     return defer.promise;
+  }
+
+  function hasPermission(permissions, context) {
+    var has = false;
+    console.log('HAS', has);
+    loop: for (var i = 0; i < permissions.length; i++) {
+      var permission = permissions[i];
+      if (context === permission.context) {
+        for (var j = 0; j < permission.items.length; j++) {
+          var roles = permission.items[j].roles;
+          has = (roles.c && roles.r && roles.u && roles.d && roles.p);
+          if (has) {
+            break loop;
+          }
+        }
+      }
+    }
+    return has;
   }
 
   function setGroupPermissionsOnUser(context) {
@@ -97,10 +129,6 @@ export function Permission(Auth, $q, $log) {
   }
 
   function checkReadContext(context, moderators) {
-
-  }
-
-  function checkCreateContext() {
 
   }
 

@@ -13,8 +13,10 @@ export function canRead(Permission) {
       Permission
         .checkPermission($scope.context, $scope.contextId, $scope.moderadors)
         .then(roles => {
-          console.log('id: ' + $scope.contextId + ' LoadcanRead: ' + roles.r);
-          if (!roles.r) {
+          console.log(roles);
+          var rolerRead = !(!roles.r && !(roles.c || roles.u || roles.d || roles.p));
+          console.log('id: ' + $scope.contextId + ' LoadcanRead: ' + rolerRead);
+          if (!rolerRead) {
             elem.remove();
           }
         });

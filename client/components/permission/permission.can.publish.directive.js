@@ -13,7 +13,6 @@ export function canPublish(Permission) {
       Permission
         .checkPermission($scope.context, $scope.contextId, $scope.moderadors)
         .then(roles => {
-          console.log(roles);
           console.log('id: ' + $scope.contextId + ' LoadcanPublish: ' + roles.p);
           if (!roles.p) {
             elem.remove();

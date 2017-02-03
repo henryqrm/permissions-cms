@@ -52,24 +52,22 @@ export function AuthService($location, $http, $cookies, $q, socket, appConfig, U
           if (resource.group === currentUser.group) {
             currentContexts = resource.contexts;
             return currentContexts;
-            // console.log(resource);
           }
         }
       }
-      // console.log();
       return currentContexts;
     },
     getContextPermission(context) {
-      if (contextPermission === null) {
-        for (var j = 0; j < currentContexts.length; j++) {
-          var currentContext = currentContexts[j];
-          if (currentContext.name === context) {
-            contextPermission = currentContext.roles;
-            return currentContext.roles;
-          }
+      if (currentContexts === null) {
+        Auth.getCurrentContexts();
+      }
+      for (var j = 0; j < currentContexts.length; j++) {
+        var currentContext = currentContexts[j];
+        if (currentContext.name === context) {
+          contextPermission = currentContext.roles;
+          return currentContext.roles;
         }
       }
-      return contextPermission;
     },
 
     getResource() {
